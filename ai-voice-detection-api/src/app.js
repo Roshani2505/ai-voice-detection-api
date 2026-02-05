@@ -1,15 +1,17 @@
-require("dotenv").config();
-const express = require("express");
+import express from "express";
+import dotenv from "dotenv";
 
-const voiceDetectionRoute = require("./routes/voiceDetection");
-const apiKeyAuth = require("./middleware/apiKeyAuth");
+dotenv.config();
 
 const app = express();
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json());
 
-app.use("/api", apiKeyAuth, voiceDetectionRoute);
+app.get("/", (req, res) => {
+  res.send("AI Voice Detection API is running");
+});
 
 const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
-  console.log(`✅ API running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
